@@ -1,0 +1,1 @@
+Redis简易客户端，基于jedis-2.9.0.jar,重写了Connection和Protocol，使得客户端能够通过TCP和Redis服务建立连接并且执行命令。

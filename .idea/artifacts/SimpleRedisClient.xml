@@ -1,0 +1,32 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="SimpleRedisClient">
+    <output-path>$PROJECT_DIR$/out/artifacts/SimpleRedisClient</output-path>
+    <properties id="ant-preprocessing">
+      <options enabled="true" />
+    </properties>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="doggy.MainApplication" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="icons">
+          <JavaFxApplicationIcons>
+            <option name="windowsIcon" value="$PROJECT_DIR$/src/doggy/favicon.ico" />
+          </JavaFxApplicationIcons>
+        </option>
+        <option name="msgOutputLevel" value="Verbose" />
+        <option name="nativeBundle" value="exe" />
+        <option name="title" value="SimpleRedisClient" />
+        <option name="updateMode" value="always" />
+        <option name="vendor" value="Java Lee" />
+        <option name="version" value="v1.0" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="SimpleRedisClient.jar">
+        <element id="module-output" name="SimpleRedisClient" />
+      </element>
+      <element id="library" level="project" name="jedis-2.9.0" />
+    </root>
+  </artifact>
+</component>
