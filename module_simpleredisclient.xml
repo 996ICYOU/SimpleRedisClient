@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_simpleredisclient" default="compile.module.simpleredisclient">
+  <dirname property="module.simpleredisclient.basedir" file="${ant.file.module_simpleredisclient}"/>
+  
+  <property name="module.jdk.home.simpleredisclient" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.simpleredisclient" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.simpleredisclient" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.simpleredisclient" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="simpleredisclient.output.dir" value="${module.simpleredisclient.basedir}/out/production/SimpleRedisClient"/>
+  <property name="simpleredisclient.testoutput.dir" value="${module.simpleredisclient.basedir}/out/test/SimpleRedisClient"/>
+  
+  <path id="simpleredisclient.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="simpleredisclient.module.production.classpath">
+    <path refid="${module.jdk.classpath.simpleredisclient}"/>
+    <path refid="library.jedis-2.9.0.classpath"/>
+  </path>
+  
+  <path id="simpleredisclient.runtime.production.module.classpath">
+    <pathelement location="${simpleredisclient.output.dir}"/>
+    <path refid="library.jedis-2.9.0.classpath"/>
+  </path>
+  
+  <path id="simpleredisclient.module.classpath">
+    <path refid="${module.jdk.classpath.simpleredisclient}"/>
+    <pathelement location="${simpleredisclient.output.dir}"/>
+    <path refid="library.jedis-2.9.0.classpath"/>
+  </path>
+  
+  <path id="simpleredisclient.runtime.module.classpath">
+    <pathelement location="${simpleredisclient.testoutput.dir}"/>
+    <pathelement location="${simpleredisclient.output.dir}"/>
+    <path refid="library.jedis-2.9.0.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.simpleredisclient">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.simpleredisclient">
+    <patternset refid="excluded.from.module.simpleredisclient"/>
+  </patternset>
+  
+  <path id="simpleredisclient.module.sourcepath">
+    <dirset dir="${module.simpleredisclient.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.simpleredisclient" depends="compile.module.simpleredisclient.production,compile.module.simpleredisclient.tests" description="Compile module SimpleRedisClient"/>
+  
+  <target name="compile.module.simpleredisclient.production" depends="register.custom.compilers" description="Compile module SimpleRedisClient; production classes">
+    <mkdir dir="${simpleredisclient.output.dir}"/>
+    <javac2 destdir="${simpleredisclient.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.simpleredisclient}/javac">
+      <compilerarg line="${compiler.args.simpleredisclient}"/>
+      <bootclasspath refid="simpleredisclient.module.bootclasspath"/>
+      <classpath refid="simpleredisclient.module.production.classpath"/>
+      <src refid="simpleredisclient.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.simpleredisclient"/>
+    </javac2>
+    
+    <copy todir="${simpleredisclient.output.dir}">
+      <fileset dir="${module.simpleredisclient.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.simpleredisclient.tests" depends="register.custom.compilers,compile.module.simpleredisclient.production" description="compile module SimpleRedisClient; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.simpleredisclient" description="cleanup module">
+    <delete dir="${simpleredisclient.output.dir}"/>
+    <delete dir="${simpleredisclient.testoutput.dir}"/>
+  </target>
+</project>
